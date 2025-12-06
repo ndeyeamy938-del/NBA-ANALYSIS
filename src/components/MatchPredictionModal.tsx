@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -33,20 +32,12 @@ import { useQuery } from "@tanstack/react-query";
 import { nbaApi, TodayGame, Player } from "@/services/nbaApi";
 import {
   Brain,
-  Zap,
   X,
   ChevronsUpDown,
-  AlertCircle,
   Star,
   ChevronRight,
 } from "lucide-react";
 import { getTeamCode } from "@/lib/teamMapping";
-import {
-  getFatigueFactor,
-  getRestBadge,
-} from "@/lib/fatigueUtils";
-import { BlowoutBar } from "@/components/BlowoutBar";
-import { ShootingBattleCard } from "@/components/ShootingBattleCard";
 
 interface MatchPredictionModalProps {
   open: boolean;
