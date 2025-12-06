@@ -213,7 +213,7 @@ export function MatchPredictionModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-5xl max-h-[90vh] flex flex-col p-0 gap-0">
+      <DialogContent className="sm:max-w-5xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
         {/* Header */}
         <DialogHeader className="border-b border-blue-500/20 px-6 py-4 bg-gradient-to-r from-slate-900 to-slate-800 flex-shrink-0">
           <DialogTitle className="flex items-center gap-2 text-base">
@@ -226,7 +226,7 @@ export function MatchPredictionModal({
         </DialogHeader>
 
         {/* Content */}
-        <ScrollArea className="flex-1 min-h-0">
+        <ScrollArea className="flex-1 min-h-0 overflow-y-auto">
           <div className="p-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-20">
