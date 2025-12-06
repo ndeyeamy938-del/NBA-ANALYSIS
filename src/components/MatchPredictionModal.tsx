@@ -165,173 +165,172 @@ export function MatchPredictionModal({
               </div>
             ) : prediction ? (
               <div className="space-y-6">
-                {/* ============ SECTION 1: HOME TEAM ABSENCES ============ */}
+                {/* ============ SECTION 1: SIMULATION CONTROL ============ */}
                 <Card className="border-blue-500/20">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-sm">{game?.homeTeam} - Absences</CardTitle>
+                    <CardTitle className="text-sm">Simulation Control</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <Popover
-                      open={homePopoverOpen}
-                      onOpenChange={setHomePopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          aria-expanded={homePopoverOpen}
-                          className="w-full justify-between text-left font-normal h-9 border-blue-500/30"
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Home Team Absences */}
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                          {game?.homeTeam} Absences
+                        </label>
+                        <Popover
+                          open={homePopoverOpen}
+                          onOpenChange={setHomePopoverOpen}
                         >
-                          <span className="text-muted-foreground text-sm">
-                            {homeMissingPlayers.length === 0
-                              ? "Add players..."
-                              : `${homeMissingPlayers.length} selected`}
-                          </span>
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0" align="start">
-                        <Command>
-                          <Input
-                            placeholder="Search by name..."
-                            value={homeSearchQuery}
-                            onChange={(e) => setHomeSearchQuery(e.target.value)}
-                            className="border-0 border-b rounded-none focus-visible:ring-0"
-                          />
-                          <CommandList>
-                            <CommandEmpty>No players found.</CommandEmpty>
-                            <CommandGroup>
-                              {homePlayerSearchResults.map((player) => (
-                                <CommandItem
-                                  key={player.id}
-                                  value={player.full_name}
-                                  onSelect={() => addHomeMissingPlayer(player)}
-                                  disabled={
-                                    homeMissingPlayers.find(
-                                      (p) => p.id === player.id
-                                    ) !== undefined
-                                  }
-                                >
-                                  {player.full_name}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    {homeMissingPlayers.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {homeMissingPlayers.map((player) => (
-                          <Badge
-                            key={player.id}
-                            variant="secondary"
-                            className="gap-1 text-xs"
-                          >
-                            {player.full_name}
-                            <button
-                              onClick={() =>
-                                removeHomeMissingPlayer(player.id)
-                              }
-                              className="ml-1 hover:text-foreground"
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={homePopoverOpen}
+                              className="w-full justify-between text-left font-normal h-9 border-blue-500/30"
                             >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </Badge>
-                        ))}
+                              <span className="text-muted-foreground text-sm">
+                                {homeMissingPlayers.length === 0
+                                  ? "Add players..."
+                                  : `${homeMissingPlayers.length} selected`}
+                              </span>
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Command>
+                              <Input
+                                placeholder="Search by name..."
+                                value={homeSearchQuery}
+                                onChange={(e) => setHomeSearchQuery(e.target.value)}
+                                className="border-0 border-b rounded-none focus-visible:ring-0"
+                              />
+                              <CommandList>
+                                <CommandEmpty>No players found.</CommandEmpty>
+                                <CommandGroup>
+                                  {homePlayerSearchResults.map((player) => (
+                                    <CommandItem
+                                      key={player.id}
+                                      value={player.full_name}
+                                      onSelect={() => addHomeMissingPlayer(player)}
+                                      disabled={
+                                        homeMissingPlayers.find(
+                                          (p) => p.id === player.id
+                                        ) !== undefined
+                                      }
+                                    >
+                                      {player.full_name}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        {homeMissingPlayers.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {homeMissingPlayers.map((player) => (
+                              <Badge
+                                key={player.id}
+                                variant="secondary"
+                                className="gap-1 text-xs"
+                              >
+                                {player.full_name}
+                                <button
+                                  onClick={() =>
+                                    removeHomeMissingPlayer(player.id)
+                                  }
+                                  className="ml-1 hover:text-foreground"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
 
-                {/* ============ SECTION 2: AWAY TEAM ABSENCES ============ */}
-                <Card className="border-blue-500/20">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-sm">{game?.awayTeam} - Absences</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <Popover
-                      open={awayPopoverOpen}
-                      onOpenChange={setAwayPopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          aria-expanded={awayPopoverOpen}
-                          className="w-full justify-between text-left font-normal h-9 border-blue-500/30"
+                      {/* Away Team Absences */}
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                          {game?.awayTeam} Absences
+                        </label>
+                        <Popover
+                          open={awayPopoverOpen}
+                          onOpenChange={setAwayPopoverOpen}
                         >
-                          <span className="text-muted-foreground text-sm">
-                            {awayMissingPlayers.length === 0
-                              ? "Add players..."
-                              : `${awayMissingPlayers.length} selected`}
-                          </span>
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0" align="start">
-                        <Command>
-                          <Input
-                            placeholder="Search by name..."
-                            value={awaySearchQuery}
-                            onChange={(e) => setAwaySearchQuery(e.target.value)}
-                            className="border-0 border-b rounded-none focus-visible:ring-0"
-                          />
-                          <CommandList>
-                            <CommandEmpty>No players found.</CommandEmpty>
-                            <CommandGroup>
-                              {awayPlayerSearchResults.map((player) => (
-                                <CommandItem
-                                  key={player.id}
-                                  value={player.full_name}
-                                  onSelect={() =>
-                                    addAwayMissingPlayer(player)
-                                  }
-                                  disabled={
-                                    awayMissingPlayers.find(
-                                      (p) => p.id === player.id
-                                    ) !== undefined
-                                  }
-                                >
-                                  {player.full_name}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    {awayMissingPlayers.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {awayMissingPlayers.map((player) => (
-                          <Badge
-                            key={player.id}
-                            variant="secondary"
-                            className="gap-1 text-xs"
-                          >
-                            {player.full_name}
-                            <button
-                              onClick={() =>
-                                removeAwayMissingPlayer(player.id)
-                              }
-                              className="ml-1 hover:text-foreground"
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={awayPopoverOpen}
+                              className="w-full justify-between text-left font-normal h-9 border-blue-500/30"
                             >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </Badge>
-                        ))}
+                              <span className="text-muted-foreground text-sm">
+                                {awayMissingPlayers.length === 0
+                                  ? "Add players..."
+                                  : `${awayMissingPlayers.length} selected`}
+                              </span>
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Command>
+                              <Input
+                                placeholder="Search by name..."
+                                value={awaySearchQuery}
+                                onChange={(e) => setAwaySearchQuery(e.target.value)}
+                                className="border-0 border-b rounded-none focus-visible:ring-0"
+                              />
+                              <CommandList>
+                                <CommandEmpty>No players found.</CommandEmpty>
+                                <CommandGroup>
+                                  {awayPlayerSearchResults.map((player) => (
+                                    <CommandItem
+                                      key={player.id}
+                                      value={player.full_name}
+                                      onSelect={() =>
+                                        addAwayMissingPlayer(player)
+                                      }
+                                      disabled={
+                                        awayMissingPlayers.find(
+                                          (p) => p.id === player.id
+                                        ) !== undefined
+                                      }
+                                    >
+                                      {player.full_name}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        {awayMissingPlayers.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {awayMissingPlayers.map((player) => (
+                              <Badge
+                                key={player.id}
+                                variant="secondary"
+                                className="gap-1 text-xs"
+                              >
+                                {player.full_name}
+                                <button
+                                  onClick={() =>
+                                    removeAwayMissingPlayer(player.id)
+                                  }
+                                  className="ml-1 hover:text-foreground"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+                    </div>
 
-                {/* ============ SECTION 3: QUICK PLAYER SELECTION TABS ============ */}
-                <Card className="border-blue-500/20">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-sm">Quick Selection</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Tabs defaultValue="home" className="w-full">
+                    {/* Quick Player Selection Tabs */}
+                    <Tabs defaultValue="home" className="w-full mt-4">
                       <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="home">{game?.homeTeam} Roster</TabsTrigger>
                         <TabsTrigger value="away">{game?.awayTeam} Roster</TabsTrigger>
@@ -392,50 +391,131 @@ export function MatchPredictionModal({
                   </CardContent>
                 </Card>
 
-                {/* ============ SECTION 4: NET RATING ANALYSIS ============ */}
-                {prediction.details && (
-                  <Card className="border-blue-500/20">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-yellow-400" />
-                        Team Net Rating (Adjusted for Absences)
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2 p-4 rounded-lg bg-slate-800/50 border border-purple-500/20">
-                          <p className="text-xs font-semibold text-foreground">{game?.homeTeam}</p>
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                              {(prediction.details.home_net_rtg ?? 0).toFixed(2)}
-                            </span>
-                            <span className="text-xs text-muted-foreground">Net RTG</span>
-                          </div>
-                          {homeMissingPlayers.length > 0 && (
-                            <p className="text-[10px] text-orange-400">
-                              {homeMissingPlayers.length} player{homeMissingPlayers.length !== 1 ? "s" : ""} absent
-                            </p>
-                          )}
-                        </div>
+                {/* ============ SECTION 2: PLAYER PROJECTIONS ============ */}
+                <Card className="border-blue-500/20">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Star className="h-4 w-4 text-yellow-400" />
+                      Roster Projections
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Tabs defaultValue="home" className="w-full">
+                      <TabsList className="grid w-full grid-cols-2 mb-4">
+                        <TabsTrigger value="home" className="text-xs">
+                          {game?.homeTeam}
+                        </TabsTrigger>
+                        <TabsTrigger value="away" className="text-xs">
+                          {game?.awayTeam}
+                        </TabsTrigger>
+                      </TabsList>
 
-                        <div className="space-y-2 p-4 rounded-lg bg-slate-800/50 border border-amber-500/20">
-                          <p className="text-xs font-semibold text-foreground">{game?.awayTeam}</p>
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
-                              {(prediction.details.away_net_rtg ?? 0).toFixed(2)}
-                            </span>
-                            <span className="text-xs text-muted-foreground">Net RTG</span>
+                      <TabsContent value="home">
+                        <div className="border border-blue-500/20 rounded-lg overflow-hidden">
+                          <div className="grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr] gap-3 p-3 bg-slate-800/50 border-b border-blue-500/20 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                            <div>Player</div>
+                            <div className="text-right">MIN</div>
+                            <div className="text-right">PTS</div>
+                            <div className="text-right">REB</div>
+                            <div className="text-right">AST</div>
                           </div>
-                          {awayMissingPlayers.length > 0 && (
-                            <p className="text-[10px] text-orange-400">
-                              {awayMissingPlayers.length} player{awayMissingPlayers.length !== 1 ? "s" : ""} absent
-                            </p>
-                          )}
+                          <div className="space-y-1 max-h-60 overflow-y-auto">
+                            {homeRoster.slice(0, 12).map((player) => {
+                              const isAbsent = homeMissingPlayers.some(
+                                (p) => p.id === player.id
+                              );
+                              return (
+                                <div
+                                  key={player.id}
+                                  className={`grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr] gap-3 p-3 border-b border-slate-700/50 text-xs items-center hover:bg-slate-800/30 transition ${
+                                    isAbsent ? "opacity-40" : ""
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <span
+                                      className="font-medium text-foreground truncate"
+                                    >
+                                      {player.full_name}
+                                    </span>
+                                    {isAbsent && (
+                                      <Badge className="text-[8px] h-5 bg-red-500/20 text-red-400 border-red-500/30">
+                                        Out
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    32
+                                  </div>
+                                  <div className="text-right font-bold text-cyan-400">
+                                    18.5
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    4.2
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    5.1
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
+                      </TabsContent>
+
+                      <TabsContent value="away">
+                        <div className="border border-blue-500/20 rounded-lg overflow-hidden">
+                          <div className="grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr] gap-3 p-3 bg-slate-800/50 border-b border-blue-500/20 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                            <div>Player</div>
+                            <div className="text-right">MIN</div>
+                            <div className="text-right">PTS</div>
+                            <div className="text-right">REB</div>
+                            <div className="text-right">AST</div>
+                          </div>
+                          <div className="space-y-1 max-h-60 overflow-y-auto">
+                            {awayRoster.slice(0, 12).map((player) => {
+                              const isAbsent = awayMissingPlayers.some(
+                                (p) => p.id === player.id
+                              );
+                              return (
+                                <div
+                                  key={player.id}
+                                  className={`grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr] gap-3 p-3 border-b border-slate-700/50 text-xs items-center hover:bg-slate-800/30 transition ${
+                                    isAbsent ? "opacity-40" : ""
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <span
+                                      className="font-medium text-foreground truncate"
+                                    >
+                                      {player.full_name}
+                                    </span>
+                                    {isAbsent && (
+                                      <Badge className="text-[8px] h-5 bg-red-500/20 text-red-400 border-red-500/30">
+                                        Out
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    32
+                                  </div>
+                                  <div className="text-right font-bold text-cyan-400">
+                                    18.5
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    4.2
+                                  </div>
+                                  <div className="text-right text-muted-foreground">
+                                    5.1
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
               </div>
             ) : (
               <div className="text-center py-12 text-muted-foreground text-sm">
