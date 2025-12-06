@@ -142,62 +142,6 @@ export function MatchPredictionModal({
     [awayMissingPlayers]
   );
 
-  const getConfidenceBadgeColor = (level: string | undefined | null) => {
-    if (!level) return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    const lower = level.toLowerCase();
-    if (lower.includes("indécis") || lower.includes("tight") || lower.includes("serré"))
-      return "bg-amber-500/20 text-amber-400 border-amber-500/30";
-    if (lower.includes("solid") || lower.includes("solide"))
-      return "bg-emerald-500/20 text-emerald-400 border-emerald-500/30";
-    if (lower.includes("blowout"))
-      return "bg-red-500/20 text-red-400 border-red-500/30";
-    return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-  };
-
-  const getWinnerGradient = (winner: string) => {
-    return winner === game?.homeTeam
-      ? "from-purple-600/20 to-purple-500/10"
-      : "from-amber-600/20 to-amber-500/10";
-  };
-
-  const renderFatigueSection = (
-    teamName: string | undefined,
-    factors: string[] | undefined
-  ) => {
-    const factorsList = factors || [];
-    const hasFactors = factorsList.length > 0;
-
-    return (
-      <div className="space-y-2">
-        <h4 className="text-xs font-semibold text-foreground">{teamName}</h4>
-        <div className="flex flex-wrap gap-1.5">
-          {hasFactors ? (
-            factorsList.map((factor, idx) => {
-              const fatigueInfo = getFatigueFactor(factor);
-              return (
-                <Badge
-                  key={idx}
-                  className={`text-[10px] py-0.5 px-2 border ${fatigueInfo.bgColor} ${fatigueInfo.color}`}
-                >
-                  <AlertCircle className="h-2.5 w-2.5 mr-1" />
-                  {fatigueInfo.name}
-                </Badge>
-              );
-            })
-          ) : (
-            <Badge
-              className={`text-[10px] py-0.5 px-2 border ${
-                getRestBadge().bgColor
-              } ${getRestBadge().color}`}
-            >
-              {getRestBadge().icon} {getRestBadge().name}
-            </Badge>
-          )}
-        </div>
-      </div>
-    );
-  };
-
   const handleLogoError = (teamId: string) => {
     setFailedLogos((prev) => new Set([...prev, teamId]));
   };
