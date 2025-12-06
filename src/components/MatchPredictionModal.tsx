@@ -138,10 +138,6 @@ export function MatchPredictionModal({
     [awayMissingPlayers]
   );
 
-  const handleLogoError = (teamId: string) => {
-    setFailedLogos((prev) => new Set([...prev, teamId]));
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-5xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
