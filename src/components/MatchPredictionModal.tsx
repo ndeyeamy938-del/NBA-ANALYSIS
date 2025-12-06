@@ -45,9 +45,6 @@ interface MatchPredictionModalProps {
   game: TodayGame | null;
 }
 
-const getLogo = (id: string | undefined) =>
-  id ? `https://cdn.nba.com/logos/nba/${id}/global/L/logo.svg` : null;
-
 export function MatchPredictionModal({
   open,
   onOpenChange,
