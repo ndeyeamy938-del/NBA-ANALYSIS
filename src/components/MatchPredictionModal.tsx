@@ -36,6 +36,7 @@ import {
   ChevronsUpDown,
   Star,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 import { getTeamCode } from "@/lib/teamMapping";
 
