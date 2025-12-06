@@ -213,7 +213,7 @@ export function MatchPredictionModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[1000px] max-h-[90vh] overflow-hidden flex flex-col p-0 gap-0">
+      <DialogContent className="sm:max-w-5xl max-h-[90vh] overflow-y-auto flex flex-col p-0 gap-0">
         {/* Header */}
         <DialogHeader className="border-b border-blue-500/20 px-6 py-4 bg-gradient-to-r from-slate-900 to-slate-800 flex-shrink-0">
           <DialogTitle className="flex items-center gap-2 text-base">
