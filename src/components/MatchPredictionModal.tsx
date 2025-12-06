@@ -463,7 +463,7 @@ export function MatchPredictionModal({
                   </CardContent>
                 </Card>
 
-                {/* ============ SECTION 7: PLAYER PROJECTIONS ============ */}
+                {/* ============ SECTION 2: PLAYER PROJECTIONS ============ */}
                 <Card className="border-blue-500/20">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-sm flex items-center gap-2">
